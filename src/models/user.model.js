@@ -1,12 +1,11 @@
 const {Schema, model, models} = require("mongoose");
+const List =require("./list.model")
+const Fav =require("./fav.model")
 
-const emailRegex = new RegExp(
-    "[a-z0-9._-]*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?[.])+[a-z0-9]{2,}"
-);
-const passRegex = new RegExp("(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
+const emailRegex = new RegExp("[a-z0-9._-]*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?[.])+[a-z0-9]{2,}");
+const regex = new RegExp("^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$");
 
 const userSchema = new Schema(
-
 
     {
         email:{
@@ -25,13 +24,13 @@ const userSchema = new Schema(
 
     password: {
         type: String,
-        required: true,
-        match: [passRegex, "Password must have 8 characteres, at least 1 number, 1 uppercase, 1 lowercase and 1 special character"]
-    },
+        required: true, 
+        //match:[regex, "password invalid"]
+    }
+    ,
 
     listsfavs:{
         type: [{ type: Schema.Types.ObjectId, ref: "List" }],
-        required: false,
     },
 
     }, 

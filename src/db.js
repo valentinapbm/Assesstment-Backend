@@ -1,17 +1,36 @@
 const mongoose = require("mongoose");
+let connection;
 
-function connect () {
-    mongoose.connect("mongodb://localhost:27017");
 
-    mongoose.connection.once("open",()=>{
-        console.log("Connected with mongo")
-    })
+async function connect () {
+    if(connection) return;
 
-    mongoose.connection.on("error",(err)=>{
-        console.log("Something went wrong",err)
-    })
-
-    return mongoose.connection
+    const uri = process.env.MONGO_URI || "mongodb://localhost:27017"
+    const options = {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        };
+    
+    connection = mongoose.connection;
+    
+    connection.once("open", () =>
+        console.log("Connection established successfully")
+        );
+    connection.on("disconnected", () => console.log("Succesfully disconnected"));
+    connection.on("error", (err) => console.log("Something went wrong", err));
+    
+        await mongoose.connect(uri, options);
 }
-
-module.exports = { connect };
+    
+async function disconnected() {
+        if (!connection) return;
+        await mongoose.disconnect();
+}
+    
+async function cleanup() {
+    for (const collection in connection.collections) {
+        await connection.collections[collection].deleteMany({});
+}
+}
+    
+module.exports = { connect, disconnected, cleanup };

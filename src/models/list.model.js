@@ -6,11 +6,9 @@ const listSchema = new Schema(
         name:{
             type: String,
             required: true,
-            minlength: [10, "name too short"],
-            maxlength: [50, "name too long"],
         },
 
-        items:{
+        favs:{
             type: [{ type: Schema.Types.ObjectId, ref: "Fav" }],
             required: false,
         },

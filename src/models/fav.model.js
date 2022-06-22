@@ -6,27 +6,25 @@ const favSchema = new Schema(
         title:{
             type: String,
             required: true,
-            minlength: [10, "title too short"],
-            maxlength: [50, "title too long"],
         },
 
-        password: {
+        description: {
             type: String,
             required: true,
-            minlength: [20, "description too short"],
-            maxlength: [200, "description too long"],
         },
 
         link:{
             type: String,
+            required: true,
         },
         user: {
             type: Schema.Types.ObjectId,
             ref: 'User',
         },
         list:{
-            type: Schema.Types.ObjectId,
-            ref: 'List',
+            type: Schema.Types.ObjectId, 
+            ref: "List",
+            required: false,
         }
 
     },
