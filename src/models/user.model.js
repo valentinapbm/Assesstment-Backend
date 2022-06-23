@@ -3,7 +3,7 @@ const List =require("./list.model")
 const Fav =require("./fav.model")
 
 const emailRegex = new RegExp("[a-z0-9._-]*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?[.])+[a-z0-9]{2,}");
-const regex = new RegExp("^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$");
+const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm
 
 const userSchema = new Schema(
 
@@ -25,7 +25,7 @@ const userSchema = new Schema(
     password: {
         type: String,
         required: true, 
-        //match:[regex, "password invalid"]
+        match:[regex, "password must have at least 8 characteres, 1 uppercase, 1 number, 1 lowercase and optional a special character"]
     }
     ,
 
