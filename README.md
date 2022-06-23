@@ -9,7 +9,7 @@ Develop the API's initial version for Favs company, in which we can make request
 * configuration: cors, dotenv, express & morgan
 * token and encryption: bcryptjs & jsonwebtoken. 
  ## 
-For making the requests is necessary a tool like postman, insonmia, etc. 
+For making the requests is necessary a tool like postman.
 
 ## Install ⚙️
 → Clone this repository to run the API with the following command:
